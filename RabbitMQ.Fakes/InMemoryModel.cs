@@ -12,6 +12,11 @@ namespace fake_rabbit
             throw new NotImplementedException();
         }
 
+        public IBasicPublishBatch CreateBasicPublishBatch()
+        {
+            throw new NotImplementedException();
+        }
+
         public IBasicProperties CreateBasicProperties()
         {
             throw new NotImplementedException();
@@ -97,6 +102,16 @@ namespace fake_rabbit
             throw new NotImplementedException();
         }
 
+        public uint MessageCount(string queue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public uint ConsumerCount(string queue)
+        {
+            throw new NotImplementedException();
+        }
+
         public QueueDeclareOk QueueDeclare(string queue, bool durable, bool exclusive, bool autoDelete, IDictionary<string, object> arguments)
         {
             throw new NotImplementedException();
@@ -176,6 +191,8 @@ namespace fake_rabbit
         {
             throw new NotImplementedException();
         }
+
+        public int ChannelNumber { get; set; }
 
         public string BasicConsume(string queue, bool noAck, IBasicConsumer consumer)
         {
@@ -320,12 +337,14 @@ namespace fake_rabbit
             get { throw new NotImplementedException(); }
         }
 
-        public event ModelShutdownEventHandler ModelShutdown;
-        public event BasicReturnEventHandler BasicReturn;
-        public event BasicAckEventHandler BasicAcks;
-        public event BasicNackEventHandler BasicNacks;
-        public event CallbackExceptionEventHandler CallbackException;
-        public event FlowControlEventHandler FlowControl;
-        public event BasicRecoverOkEventHandler BasicRecoverOk;
+        public TimeSpan ContinuationTimeout { get; set; }
+
+        public event EventHandler<ShutdownEventArgs> ModelShutdown;
+        public event EventHandler<BasicReturnEventArgs> BasicReturn;
+        public event EventHandler<BasicAckEventArgs> BasicAcks;
+        public event EventHandler<BasicNackEventArgs> BasicNacks;
+        public event EventHandler<CallbackExceptionEventArgs> CallbackException;
+        public event EventHandler<FlowControlEventArgs> FlowControl;
+        public event EventHandler<EventArgs> BasicRecoverOk;
     }
 }

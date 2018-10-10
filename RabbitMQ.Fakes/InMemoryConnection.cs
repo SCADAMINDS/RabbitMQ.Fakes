@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -150,9 +151,14 @@ namespace fake_rabbit
             get { throw new System.NotImplementedException(); }
         }
 
-        public event ConnectionShutdownEventHandler ConnectionShutdown;
-        public event CallbackExceptionEventHandler CallbackException;
-        public event ConnectionBlockedEventHandler ConnectionBlocked;
-        public event ConnectionUnblockedEventHandler ConnectionUnblocked;
+        public string ClientProvidedName { get; set; }
+        public ConsumerWorkService ConsumerWorkService { get; set; }
+
+        public event EventHandler<ShutdownEventArgs> ConnectionShutdown;
+        public event EventHandler<CallbackExceptionEventArgs> CallbackException;
+        public event EventHandler<EventArgs> RecoverySucceeded;
+        public event EventHandler<ConnectionRecoveryErrorEventArgs> ConnectionRecoveryError;
+        public event EventHandler<ConnectionBlockedEventArgs> ConnectionBlocked;
+        public event EventHandler<EventArgs> ConnectionUnblocked;
     }
 }
